@@ -9,12 +9,20 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from .serializers import StationSerializer, AuthTokenSerializer
 from rest_framework.settings import api_settings
 from core.models import Station
+from django.shortcuts import get_object_or_404
 
 
-class StationViewSet(viewsets.ModelViewSet):
+class StationViewSet(viewsets.ViewSet):
     queryset = Station.objects.all()
     serializer_class = StationSerializer
     authentication_classes = (TokenAuthentication,)
+    permission_classes = [IsAuthenticated]
+
+    def retrieve(self, request, pk=None):
+        queryset = Station.objects.filter(id=request.user.id)
+        user = get_object_or_404(queryset)
+        serializer = StationSerializer(user)
+        return Response(serializer.data)
 
 
 class RegisterStationViewSet(CreateModelMixin, viewsets.GenericViewSet):

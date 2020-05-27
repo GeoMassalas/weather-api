@@ -16,6 +16,19 @@ class StationSerializer(serializers.ModelSerializer):
         return get_user_model().objects.create_user(**validated_data)
 
 
+class DisplayStationSerializer(serializers.ModelSerializer):
+    # password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
+
+    class Meta:
+        model = get_user_model()
+        fields = ('id', 'username', 'password', 'email', 'external_id', 'latitude', 'longitude',
+                  'altitude', 'data')
+        extra_kwargs = {'password': {'write_only': True, 'required': True, 'min_length': 8}}
+
+    def create(self, validated_data):
+        return get_user_model().objects.create_user(**validated_data)
+
+
 class AuthTokenSerializer(serializers.Serializer):
     """Serializer for the user authentication object"""
     email = serializers.CharField()

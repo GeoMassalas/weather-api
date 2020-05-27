@@ -4,7 +4,7 @@ from rest_framework import routers
 from .views import RegisterStationViewSet, StationViewSet, LoginView
 
 router = routers.DefaultRouter()
-router.register('register', RegisterStationViewSet)
+router.register('register', RegisterStationViewSet, basename="Register Station")
 router.register('', StationViewSet)
 
 urlpatterns = [
