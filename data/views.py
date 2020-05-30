@@ -1,4 +1,4 @@
-from rest_framework import viewsets, status
+from rest_framework import status
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
@@ -13,10 +13,20 @@ class DataStampFilter(filters.FilterSet):
     max_temp = filters.NumberFilter(field_name="temperature", lookup_expr='lte')
     min_date = filters.DateFilter(field_name="date", lookup_expr='gte')
     max_date = filters.DateFilter(field_name="date", lookup_expr='lte')
+    min_time = filters.TimeFilter(field_name="time", lookup_expr='gte')
+    max_time = filters.TimeFilter(field_name="time", lookup_expr='lte')
+    min_humidity = filters.NumberFilter(field_name="humidity", lookup_expr='gte')
+    max_humidity = filters.NumberFilter(field_name="humidity", lookup_expr='lte')
+    min_wind_speed = filters.NumberFilter(field_name="wind_speed", lookup_expr='gte')
+    max_wind_speed = filters.NumberFilter(field_name="wind_speed", lookup_expr='lte')
+    min_rain_1h = filters.NumberFilter(field_name="rain_1h", lookup_expr='gte')
+    max_rain_1h = filters.NumberFilter(field_name="rain_1h", lookup_expr='lte')
 
     class Meta:
         model = DataStamp
-        fields = ['station', 'min_temp', 'max_temp', 'min_date', 'max_date', 'station__external_id']
+        fields = ['station', 'min_temp', 'max_temp', 'min_date', 'max_date', 'station__external_id', 'max_time',
+                  'min_time', 'max_humidity', 'min_humidity', 'max_wind_speed', 'min_wind_speed',
+                  'min_rain_1h', 'max_rain_1h']
 
 
 class DataStampView(ListCreateAPIView):
