@@ -81,14 +81,13 @@ class DataStamp(models.Model):
     ]
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
-    temperature = models.DecimalField(max_digits=3, decimal_places=1,
-                                      validators=[MinValueValidator(-50), MaxValueValidator(80)])
+    temperature = models.DecimalField(max_digits=3, decimal_places=1)
     wind_speed = models.DecimalField(max_digits=4, decimal_places=1)
     wind_direction = models.CharField(max_length=2, choices=WIND_DIRECTIONS)
     # TODO: Not really sure how to validate atmospheric pressure. Need to do further research.
     pressure = models.PositiveSmallIntegerField()
-    humidity = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(40)])
-    rain_1h = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
+    humidity = models.PositiveSmallIntegerField()
+    rain_1h = models.PositiveSmallIntegerField()
 
     def __str__(self):
         return self.date
